@@ -11,6 +11,9 @@ import{ ReactReduxFirebaseProvider, getFirebase} from 'react-redux-firebase'
 import {createFirestoreInstance,reduxFirestore, getFirestore} from 'redux-firestore'
 import fbConfig from './config/fbConfig'
 import firebase from 'firebase/app'
+import { useSelector  } from 'react-redux'
+import { isLoaded  } from 'react-redux-firebase';
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 const store=createStore(rootReducer,
   compose(
@@ -19,20 +22,48 @@ const store=createStore(rootReducer,
    
     )
   );
+  const profileSpecificProps = {
 
-const rrfProps = {
-  firebase,
-  config: fbConfig,
-  dispatch: store.dispatch,
-  createFirestoreInstance
-};
-
-
+    userProfile: 'users',
+    useFirestoreForProfile: true,
+    enableRedirectHandling: false,
+    resetBeforeLogin: false
+  
+  }
+  
+  
+  
+  const rrfProps = {
+  
+    firebase,
+    config: fbConfig,
+    config: profileSpecificProps,
+    dispatch: store.dispatch,
+    createFirestoreInstance
+  
+  };
+  
+  
+  
+  function AuthIsLoaded({ children }) {
+  
+    const auth = useSelector(state => state.firebase.auth)
+  
+    if (!isLoaded(auth)) return <div style={{marginLeft:"50%",paddingTop:"350px"}}>
+    <CircularProgress color="secondary" ></CircularProgress>
+</div>;
+  
+        return children
+  
+  }
+  
 
 ReactDOM.render(
   <Provider store={store}>
     <ReactReduxFirebaseProvider {...rrfProps}>
+      <AuthIsLoaded>
     <App />
+    </AuthIsLoaded>
     </ReactReduxFirebaseProvider>
     </Provider>,
   document.getElementById('root')

@@ -18,7 +18,8 @@ export class CreateBlog extends Component {
         this.state = {
              Title:"",
              Description:"",
-             Author:""
+             Author:"",
+             upImage: ""
         }
         this.submitHandler=this.submitHandler.bind(this)
         this.changeHandler=this.changeHandler.bind(this)
@@ -27,17 +28,21 @@ export class CreateBlog extends Component {
         this.setState({
             [e.target.name]: e.target.value
         })
-        
     }
     submitHandler(event)
     {
         event.preventDefault()
         this.props.createblog(this.state)
-        return <Redirect to="/home"/>
+        
     } 
+    fileHandler=(e)=>{
+      this.setState({
+          [e.target.name]: e.target.files[0]
+      })
+  }
     render() {
-
-   
+      console.log(this.props.isError)
+      if(this.props.isCreated) return (<Redirect to="/"/>)
         return (
             <div>
                 <Container component="main" maxWidth="md">
@@ -73,10 +78,15 @@ export class CreateBlog extends Component {
             type="text" id="description" rows="8"
             onChange={this.changeHandler}
           />
-                  
-             <Button type="submit" fullWidth variant="contained" color="secondary" className={styles.submit}
-                onClick={this.submitHandler}
-          >
+          <TextField
+              
+             name="upImage" label="Image"
+            type="file" id="image" 
+            onChange={this.fileHandler}
+          />
+
+             <Button type="submit" fullWidth variant="contained" color="primary" className={styles.submit}
+                >
               Create new Blog
           </Button>
         </form>
@@ -89,8 +99,9 @@ export class CreateBlog extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    
-})
+    isCreated: state.blogs.isCreated,
+    isError:   state.blogs.isError
+  })
 
 const mapDispatchToProps =(dispatch)=> ({
     createblog: (project)=>{dispatch(createNewBlog(project))}

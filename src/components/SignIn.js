@@ -13,7 +13,6 @@ import {NavLink} from 'react-router-dom'
 import { connect } from 'react-redux'
 import {signIn} from '../actions/authActions'
 import { makeStyles } from '@material-ui/core/styles';
-import {useForm} from 'react-hook-form'
 import {Redirect} from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
@@ -51,10 +50,13 @@ const submitHandler= (event) =>
     props.signIn(credentials)
 } 
 
-  const reDirect=props.isLoggedIn?<Redirect to="/"></Redirect>:<div></div>
+  const reDirect=props.isLoggedIn?<Redirect to="/"></Redirect>:        
+ <div></div> 
   return (
+    
     <Container component="main" maxWidth="xs">
       {errorLogin}
+      {reDirect}
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -116,7 +118,6 @@ const submitHandler= (event) =>
           </Grid>
         </form>
       </div>
-      {reDirect} 
     </Container>
     
   );
@@ -125,7 +126,7 @@ const submitHandler= (event) =>
 const mapStateToProps=(state)=>{
   return ({
     authError: state.auth.authError,
-    isLoggedIn: state.auth.isLoggedIn
+    isLoggedIn: (state.firebase.auth.isLoaded && state.firebase.auth.isEmpty)?false:true
   })
 }
 

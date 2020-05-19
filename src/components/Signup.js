@@ -53,7 +53,6 @@ function Signup(props) {
         lastName:lastName
       }
       props.signUp(credentials)
-      return <Redirect to="/" />
   } 
   const reDirect=props.isLoggedIn?<Redirect to="/"></Redirect>:<div></div>
 

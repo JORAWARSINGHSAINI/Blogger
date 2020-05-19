@@ -30,7 +30,7 @@ export default function LeftDrawer() {
   });
 
   const toggleDrawer = ( open) => (event) => {
-      console.log("yes")
+    
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
@@ -48,7 +48,7 @@ export default function LeftDrawer() {
       <List>
         {['Sports', 'LifeStyle', 'Games', 'World','Politics','Geography','Corona'].map((text, index) => (
           <Fragment key={index}>
-            <NavLink  to={"blogs/"+text} style={{textDecoration:"none"}}>
+            <NavLink   to={"/blogs/"+text} style={{textDecoration:"none",color:"black"}}>
           <ListItem button key={index} style={{paddingTop:15,paddingBottom:15}}>
             <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
             <ListItemText primary={text} />

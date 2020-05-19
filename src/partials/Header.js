@@ -74,6 +74,7 @@ const useStyles = makeStyles((theme) => ({
       display: 'flex',
     },
   },
+  
   sectionMobile: {
     display: 'flex',
     [theme.breakpoints.up('md')]: {
@@ -129,9 +130,9 @@ const logoutHandler=()=>{
       onClose={handleMenuClose}
     >
 
-        <MenuItem onClick={handleMenuClose}><NavLink to="/profile/:id" style={{ textDecoration: 'none'}}>Profile</NavLink></MenuItem>
-        <MenuItem onClick={handleMenuClose}><NavLink to="/account/:id" style={{ textDecoration: 'none'}}>Account</NavLink></MenuItem>
-        <MenuItem onClick={handleMenuClose}><NavLink to="/settings/:id" style={{ textDecoration: 'none'}}>Settings</NavLink></MenuItem>
+        <MenuItem onClick={handleMenuClose}><NavLink to="/profile" style={{ textDecoration: 'none',color:"black"}}>Profile</NavLink></MenuItem>
+        <MenuItem onClick={handleMenuClose}><NavLink to="/account" style={{ textDecoration: 'none',color:"black"}}>Account</NavLink></MenuItem>
+        <MenuItem onClick={handleMenuClose}><NavLink to="/settings" style={{ textDecoration: 'none',color:"black"}}>Settings</NavLink></MenuItem>
         <MenuItem onClick={logoutHandler} >LogOut</MenuItem>
         </Menu>  
       }
@@ -145,10 +146,10 @@ const logoutHandler=()=>{
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <NavLink to="/signup" style={{ textDecoration: 'none'}}>
+      <NavLink to="/signup" style={{ textDecoration: 'none',color:"black"}}>
         <MenuItem onClick={handleMenuClose}>SignUp</MenuItem>
         </NavLink>
-        <NavLink to="/signIn" style={{ textDecoration: 'none'}}>
+        <NavLink to="/signIn" style={{ textDecoration: 'none',color:"black"}}>
         <MenuItem onClick={handleMenuClose}>SignIn</MenuItem>
         </NavLink>
         </Menu>  
@@ -257,7 +258,7 @@ const logoutHandler=()=>{
   if(props.isLoggedIn)
   {
     loginIcons=(<div className={classes.sectionDesktop}>
-        <NavLink to="/createBlog">
+        <NavLink to="/createBlog" style={{color:"white"}}>
           <IconButton aria-label="show 4 new mails" color="inherit">
             <Badge  color="secondary">
             <AddCircleRoundedIcon  />
@@ -279,7 +280,7 @@ const logoutHandler=()=>{
       <AppBar position="static" color="secondary">
         <Toolbar>
         <LeftDrawer></LeftDrawer>
-          <NavLink to="/" style={{textDecoration:'none'}}>
+          <NavLink to="/" style={{textDecoration:'none',color:"white"}}>
           <Typography className={classes.title} variant="h6" noWrap>
             Blogger App
           </Typography>
@@ -319,7 +320,7 @@ const logoutHandler=()=>{
 }
 
 const mapStateToProps=(state)=>{
-  console.log(state )
+
   const isEmpty=state.firebase.auth.isEmpty
   return (
    {
