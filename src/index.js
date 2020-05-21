@@ -36,7 +36,6 @@ const store=createStore(rootReducer,
   const rrfProps = {
   
     firebase,
-    config: fbConfig,
     config: profileSpecificProps,
     dispatch: store.dispatch,
     createFirestoreInstance

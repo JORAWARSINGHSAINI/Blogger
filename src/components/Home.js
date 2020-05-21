@@ -14,19 +14,21 @@ import {compose} from 'redux'
 
 export class Home extends Component {
     render() {
-      const reDirect=this.props.isLoggedIn?<div></div>:<Redirect to="/signin"></Redirect>
-        const posts=this.props.posts;
+     
+       
+      const posts=this.props.posts;
         const postList=(posts && posts.length)? posts.map((post,index)=>{
            return( 
             
             <Grid item key={post.id} xs={12} sm={6} md={4} style={{paddingTop:40}}>
    <Card >
       <CardActionArea>
+      <NavLink to={"/posts/"+post.id} style={{textDecoration:"none", color:"black"}} >
         <CardMedia
           component="img"
           alt="Image"
           height="250"
-          image= {URL=post.imagetag?post.imagetag :(index%2===0? "https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072823__340.jpg":
+          image= {(index%2===0? "https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072823__340.jpg":
           "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQrFPBxMX2R86CMXEExnl_lrDEA5mflbzM3Cu2O-2v-l7_BLaAI&usqp=CAU")}
           title="Contemplative Reptile"
         />
@@ -35,9 +37,10 @@ export class Home extends Component {
           {post.Title}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-          {post.Description}
+          {post.Description.substr(0,20)+"...."}
           </Typography>
         </CardContent>
+        </NavLink>
       </CardActionArea>
       <CardActions>
 
@@ -60,7 +63,7 @@ export class Home extends Component {
                 <Grid container spacing={4} >
                    {postList}
                 </Grid>   
-                {reDirect}             
+                           
             </div>
         )
     }
@@ -69,7 +72,7 @@ export class Home extends Component {
 const mapStateToProps = (state) => {
   return {
     posts: state.firestore.ordered.Blogs,
-    isLoggedIn: (state.firebase.auth.isLoaded && state.firebase.auth.isEmpty)?false:true 
+   
    } 
 
 }

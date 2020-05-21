@@ -9,6 +9,7 @@ import {BrowserRouter,Switch,Route} from 'react-router-dom'
 import CreateBlog from './components/CreateBlog'
 import { Settings } from './components/Settings';
 import Profile from './components/Profile';
+import Footer from './partials/Footer';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
       <Route path="/settings" component={Settings}></Route>
       <Route path="/profile" component={Profile}></Route> 
       </Switch>
+      <Footer></Footer>
       </BrowserRouter>
       
     </div>

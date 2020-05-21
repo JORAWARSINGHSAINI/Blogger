@@ -3,7 +3,6 @@ import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import createNewBlog from '../actions/createNewBlog'
-import CreateIcon from '@material-ui/icons/Create';
 import Typography from '@material-ui/core/Typography';
 import styles from '../Stylesheets/createBlog.module.css'
 import Container from '@material-ui/core/Container';
@@ -41,16 +40,17 @@ export class CreateBlog extends Component {
       })
   }
     render() {
-      console.log(this.props.isError)
+      if(!this.props.isLoggedIn)
+      return (<Redirect to="/signin"></Redirect>)
+
+     
       if(this.props.isCreated) return (<Redirect to="/"/>)
         return (
             <div>
                 <Container component="main" maxWidth="md">
       <CssBaseline />
       <div className={styles.paper}>
-        <Avatar >
-          <CreateIcon color="secondary"></CreateIcon>
-        </Avatar>
+        
         <Typography component="h1" variant="h5">
           Create a Blog
         </Typography>
@@ -100,7 +100,8 @@ export class CreateBlog extends Component {
 
 const mapStateToProps = (state) => ({
     isCreated: state.blogs.isCreated,
-    isError:   state.blogs.isError
+    isError:   state.blogs.isError,
+    isLoggedIn: !(state.firebase.auth.isEmpty) 
   })
 
 const mapDispatchToProps =(dispatch)=> ({
