@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {Grid, CircularProgress} from '@material-ui/core'
-import {NavLink, Redirect} from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
 import {Typography} from '@material-ui/core'
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -80,6 +80,6 @@ const mapStateToProps = (state) => {
 export default compose(
   connect(mapStateToProps),
 firestoreConnect([
-  {collection: 'Blogs'}
+  {collection: 'Blogs',orderBy:['createdAt','desc']}
 ])
     )(Home)

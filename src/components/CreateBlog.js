@@ -1,4 +1,4 @@
-import Avatar from '@material-ui/core/Avatar';
+
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -17,8 +17,8 @@ export class CreateBlog extends Component {
         this.state = {
              Title:"",
              Description:"",
-             Author:"",
-             upImage: ""
+             upImage: "",
+             Type:""
         }
         this.submitHandler=this.submitHandler.bind(this)
         this.changeHandler=this.changeHandler.bind(this)
@@ -29,9 +29,10 @@ export class CreateBlog extends Component {
         })
     }
     submitHandler(event)
-    {
+    { 
+      console.log(this.props.Author)
         event.preventDefault()
-        this.props.createblog(this.state)
+        this.props.createblog({state:this.state,Author:this.props.Author})
         
     } 
     fileHandler=(e)=>{
@@ -45,6 +46,7 @@ export class CreateBlog extends Component {
 
      
       if(this.props.isCreated) return (<Redirect to="/"/>)
+      
         return (
             <div>
                 <Container component="main" maxWidth="md">
@@ -66,8 +68,8 @@ export class CreateBlog extends Component {
             variant="outlined"
             margin="normal"
             required fullWidth
-            name="Author" label="Author"
-            type="text" id="author"
+            name="Author" label="Type"
+            type="text" id="type"
             onChange={this.changeHandler}
   
           />
@@ -98,11 +100,14 @@ export class CreateBlog extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state) => {
+  console.log(state)
+  return {
     isCreated: state.blogs.isCreated,
     isError:   state.blogs.isError,
-    isLoggedIn: !(state.firebase.auth.isEmpty) 
-  })
+    isLoggedIn: !(state.firebase.auth.isEmpty) ,
+    Author:state.firebase.profile.firstName
+  }}
 
 const mapDispatchToProps =(dispatch)=> ({
     createblog: (project)=>{dispatch(createNewBlog(project))}

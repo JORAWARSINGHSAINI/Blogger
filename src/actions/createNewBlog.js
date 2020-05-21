@@ -1,11 +1,13 @@
 function createNewBlog(project) {
     return (dispatch,getState, {getFirebase,getFirestore})=>{
+        console.log(project)
         const firestore=getFirestore()
         firestore.collection('Blogs').add({
            
-            Title: project.Title,
-            Description: project.Description,
-            Author: project.Author,
+            Title: project.state.Title,
+            Description: project.state.Description,
+            Type: project.state.Type,
+            Author:project.Author,
             createdAt: new Date()
         }).then((resp)=>{
           console.log(resp) 
