@@ -10,9 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import MoreIcon from '@material-ui/icons/MoreVert';
 import LeftDrawer from '../components/LeftDrawer';
 import {NavLink} from 'react-router-dom';
 import  {signOut} from '../actions/authActions'
@@ -87,28 +85,21 @@ const useStyles = makeStyles((theme) => ({
 function Header(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [search,changeSeach]=React.useState("")
 
   const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
-  };
+
 
   const handleMenuClose = () => {
     setAnchorEl(null);
-    handleMobileMenuClose();
   };
 
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
-
+ 
   
 const logoutHandler=()=>{
   handleMenuClose()
@@ -133,6 +124,7 @@ const logoutHandler=()=>{
         <MenuItem onClick={handleMenuClose}><NavLink to="/profile" style={{ textDecoration: 'none',color:"black"}}>Profile</NavLink></MenuItem>
         <MenuItem onClick={handleMenuClose}><NavLink to="/account" style={{ textDecoration: 'none',color:"black"}}>Account</NavLink></MenuItem>
         <MenuItem onClick={handleMenuClose}><NavLink to="/settings" style={{ textDecoration: 'none',color:"black"}}>Settings</NavLink></MenuItem>
+        <MenuItem onClick={handleMenuClose}><NavLink to="/createBlog" style={{ textDecoration: 'none',color:"black"}}>Create</NavLink></MenuItem>
         <MenuItem onClick={logoutHandler} >LogOut</MenuItem>
         </Menu>  
       }
@@ -146,12 +138,9 @@ const logoutHandler=()=>{
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <NavLink to="/signup" style={{ textDecoration: 'none',color:"black"}}>
-        <MenuItem onClick={handleMenuClose}>SignUp</MenuItem>
-        </NavLink>
-        <NavLink to="/signIn" style={{ textDecoration: 'none',color:"black"}}>
-        <MenuItem onClick={handleMenuClose}>SignIn</MenuItem>
-        </NavLink>
+      
+        <MenuItem onClick={handleMenuClose}><NavLink to="/signup" style={{ textDecoration: 'none',color:"black"}}>SignUp </NavLink></MenuItem>
+        <MenuItem onClick={handleMenuClose}><NavLink to="/signin" style={{ textDecoration: 'none',color:"black"}}>SignIn </NavLink></MenuItem>        
         </Menu>  
     }
       
@@ -169,97 +158,19 @@ const logoutHandler=()=>{
           input: classes.inputInput,
         }}
         inputProps={{ 'aria-label': 'Search Blog' }}
+        onChange={(e)=>changeSeach(e.target.value)}
       />
     </div>)
    } 
   const mobileMenuId = 'primary-search-account-menu-mobile';
-  let renderMobileMenu;
-  if(props.isLoggedIn){
-    renderMobileMenu= (
-      <Menu
-        anchorEl={mobileMoreAnchorEl}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        id={mobileMenuId}
-        keepMounted
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        open={isMobileMenuOpen}
-        onClose={handleMobileMenuClose}
-      >
-        <MenuItem>
-          <IconButton aria-label="show 4 new mails" color="inherit">
-            <Badge  color="secondary">
-              <AddCircleRoundedIcon/>
-            </Badge>
-          </IconButton>
-          <p>Create Blog</p>
-        </MenuItem>
-        <MenuItem>
-          <IconButton aria-label="show 4 new mails" color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <MailIcon />
-            </Badge>
-          </IconButton>
-          <p>Messages</p>
-        </MenuItem>
-        <MenuItem>
-          <IconButton aria-label="show 11 new notifications" color="inherit">
-            <Badge badgeContent={11} color="secondary">
-              <NotificationsIcon />
-            </Badge>
-          </IconButton>
-          <p>Notifications</p>
-        </MenuItem>
-        <MenuItem onClick={handleProfileMenuOpen}>
-          <IconButton
-            aria-label="account of current user"
-            aria-controls="primary-search-account-menu"
-            aria-haspopup="true"
-            color="inherit"
-          >
-            <AccountCircle />
-          </IconButton>
-          <p>Profile</p>
-        </MenuItem>
-      </Menu>
-    );
-  } 
-  else{
-    renderMobileMenu= (
-      <Menu
-        anchorEl={mobileMoreAnchorEl}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        id={mobileMenuId}
-        keepMounted
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        open={isMobileMenuOpen}
-        onClose={handleMobileMenuClose}
-      >
-        <MenuItem>
-          <IconButton aria-label="show 4 new mails" color="inherit">
-            <Badge  color="secondary">
-              <AddCircleRoundedIcon/>
-            </Badge>
-          </IconButton>
-          <p>LogIn</p>
-        </MenuItem>
+  
 
-        <MenuItem>
-          <IconButton aria-label="show 4 new mails" color="inherit">
-            <Badge  color="secondary">
-              <MailIcon />
-            </Badge>
-          </IconButton>
-          <p>SignIN</p>
-        </MenuItem>
-</Menu>
-    );
-  }
   let loginIcons;
   if(props.isLoggedIn)
   {
     loginIcons=(<div className={classes.sectionDesktop}>
         <NavLink to="/createBlog" style={{color:"white"}}>
-          <IconButton aria-label="show 4 new mails" color="inherit">
+          <IconButton  color="inherit">
             <Badge  color="secondary">
             <AddCircleRoundedIcon  />
             </Badge>
@@ -274,13 +185,15 @@ const logoutHandler=()=>{
           
         </div>)
   }
+
+
   return (
     <div className={classes.grow}>
       
       <AppBar position="static" color="secondary">
         <Toolbar>
         <LeftDrawer></LeftDrawer>
-          <NavLink to="/" style={{textDecoration:'none',color:"white"}}>
+          <NavLink to="/Blogger" style={{textDecoration:'none',color:"white"}}>
           <Typography className={classes.title} variant="h6" noWrap>
             Blogger App
           </Typography>
@@ -300,20 +213,10 @@ const logoutHandler=()=>{
             <AccountCircle />
           </IconButton>
           
-          <div className={classes.sectionMobile}>
-            <IconButton
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </div>
+         
         </Toolbar>
       </AppBar>
-      {renderMobileMenu}
+    
       {renderMenu}
     </div>
   );

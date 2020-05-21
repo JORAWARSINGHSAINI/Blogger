@@ -17,7 +17,7 @@ function App() {
       <BrowserRouter>
       <Header></Header>
       <Switch>
-      <Route exact path="/" component={Home}></Route>
+      <Route exact path="/Blogger" component={Home}></Route>
       <Route path="/signup" component={Signup}></Route>
       <Route path="/signin" component={SignIn}></Route>
       <Route path="/posts/:id" component={Blog}></Route>

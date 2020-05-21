@@ -54,7 +54,7 @@ function Signup(props) {
       }
       props.signUp(credentials)
   } 
-  const reDirect=props.isLoggedIn?<Redirect to="/"></Redirect>:<div></div>
+  const reDirect=props.isLoggedIn?<Redirect to="/Blogger"></Redirect>:<div></div>
 
   return (
     <Container component="main" maxWidth="xs">

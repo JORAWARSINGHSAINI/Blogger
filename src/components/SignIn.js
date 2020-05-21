@@ -50,7 +50,7 @@ const submitHandler= (event) =>
     props.signIn(credentials)
 } 
 
-  const reDirect=props.isLoggedIn?<Redirect to="/"></Redirect>:        
+  const reDirect=props.isLoggedIn?<Redirect to="/Blogger"></Redirect>:        
  <div></div> 
   return (
     
